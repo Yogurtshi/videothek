@@ -1,7 +1,9 @@
 package com.yoshi.gyger.videothek.movie;
 
+import com.yoshi.gyger.videothek.security.Roles;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ public class MovieController {
     @Tag(name = "Movie", description="Get Movie")
     @Operation(summary = "Get all Movies", description = "Return list of all Movies")
     @GetMapping("api/movie")
+    @RolesAllowed(Roles.Admin)
     public ResponseEntity<List<Movie>> all()
     {
         List<Movie> result = movieService.getMovies();
