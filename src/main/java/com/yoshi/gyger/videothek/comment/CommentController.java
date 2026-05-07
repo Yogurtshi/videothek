@@ -1,13 +1,15 @@
 package com.yoshi.gyger.videothek.comment;
 
 import com.yoshi.gyger.videothek.base.MessageResponse;
-import com.yoshi.gyger.videothek.media.Media;
 import com.yoshi.gyger.videothek.security.Roles;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -43,14 +45,6 @@ public class CommentController {
             @Valid @RequestBody Comment comment) {
         Comment saved = commentService.insertComment(mediaId, comment);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/api/comments")
-    @RolesAllowed(Roles.Read)
-    @Operation(summary = "Get all comments", description = "Return list of all comments")
-    public ResponseEntity<List<Comment>> all() {
-        List<Comment> result = commentService.getComments();
-        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/api/comments/{id}")

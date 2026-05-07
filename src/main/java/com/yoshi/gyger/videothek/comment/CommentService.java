@@ -19,8 +19,6 @@ public class CommentService {
         this.mediaService = mediaService;
     }
 
-    public List<Comment> getComments(){return commentRepository.findAll();}
-
     public List<Comment> getCommentsByMedia(Long mediaId) {
         return commentRepository.findByMediaId(mediaId);
     }

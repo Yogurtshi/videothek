@@ -49,18 +49,18 @@
 - [x] Sicherstellen, dass ein User pro Medium nur eine Bewertung abgeben kann
 
 ## 7. Admin-Bereich bauen
-- [ ] `AdminController` erstellen
-- [ ] Admin-Dashboard-Endpunkt erstellen
-- [ ] Endpunkt für Kommentar-Moderation ergänzen
-- [ ] Endpunkt für Übersicht aller Medien ergänzen
+- [x] `AdminController` erstellen
+- [x] Admin-Dashboard-Endpunkt erstellen
+- [x] Endpunkt für Kommentar-Moderation ergänzen
+- [x] Endpunkt für Übersicht aller Medien ergänzen
 
 ## 8. Security mit Keycloak/Bearer Token fertig machen
-- [ ] Prüfen, welche Rollen im JWT ankommen
-- [ ] `AuthenticationRoleConverter` korrigieren
-- [ ] Rollen sauber auf `ROLE_USER` und `ROLE_ADMIN` mappen
-- [ ] Geschützte Endpunkte mit Rollen absichern
-- [ ] Bearer Token in Swagger testen
-- [ ] Prüfen, ob User und Admin unterschiedliche Rechte haben
+- [x] Prüfen, welche Rollen im JWT ankommen
+- [x] `AuthenticationRoleConverter` korrigieren
+- [x] Rollen sauber auf `ROLE_USER` und `ROLE_ADMIN` mappen
+- [x] Geschützte Endpunkte mit Rollen absichern
+- [x] Bearer Token in Swagger testen
+- [x] Prüfen, ob User und Admin unterschiedliche Rechte haben
 
 ## 9. Swagger/OpenAPI aufräumen
 - [ ] Doppelte Swagger/OpenAPI-Konfiguration bereinigen
