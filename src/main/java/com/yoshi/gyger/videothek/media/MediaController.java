@@ -21,13 +21,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/media")
 @SecurityRequirement(name = "bearerAuth")
+@Validated
+@Tag(name = "Media", description="Media management")
 public class MediaController {
 
     private final MediaService mediaService;
 
     MediaController(MediaService mediaService){this.mediaService = mediaService;}
 
-    @Tag(name = "Media", description="Get Media")
     @Operation(summary = "Get all media", description = "Return list of all medias")
     @GetMapping
     @RolesAllowed(Roles.Read)
@@ -37,37 +38,33 @@ public class MediaController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @Tag(name = "Media", description="Get Media")
-    @Operation(summary = "Get a media", description = "Return media by ID")
     @GetMapping("/{id}")
     @RolesAllowed(Roles.Read)
+    @Operation(summary = "Get a media", description = "Return media by ID")
     public ResponseEntity<Media> one(@PathVariable Long id) {
         Media media = mediaService.getMedia(id);
         return new ResponseEntity<>(media, HttpStatus.OK);
     }
 
-    @Tag(name = "Media", description="Post Media")
-    @Operation(summary = "Get all media", description = "Return list of all medias")
     @PostMapping
     @RolesAllowed(Roles.Admin)
+    @Operation(summary = "Save media", description = "Save a media")
     public ResponseEntity<Media> newMedia(@Valid @RequestBody Media media) {
         Media savedMedia = mediaService.insertMedia(media);
         return new ResponseEntity<>(savedMedia, HttpStatus.OK);
     }
 
-    @Tag(name = "Media", description="Get Media")
-    @Operation(summary = "Get all media", description = "Return list of all medias")
     @PutMapping("/{id}")
     @RolesAllowed(Roles.Admin)
+    @Operation(summary = "Update media", description = "Update media by ID")
     public ResponseEntity<Media> updateMedia(@Valid @RequestBody Media media, @PathVariable Long id) {
         Media savedMedia = mediaService.updateMedia(media, id);
         return new ResponseEntity<>(savedMedia, HttpStatus.OK);
     }
 
-    @Tag(name = "Media", description="Get Media")
-    @Operation(summary = "Get all media", description = "Return list of all medias")
     @DeleteMapping("/{id}")
     @RolesAllowed(Roles.Admin)
+    @Operation(summary = "Delete media", description = "Deletes media by ID")
     public ResponseEntity<MessageResponse> deleteMedia(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(mediaService.deleteMedia(id));

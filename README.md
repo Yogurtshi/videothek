@@ -31,13 +31,13 @@
 - [ ] `MediaSpecification` für dynamische Filter erstellen
 
 ## 5. Comment-Bereich bauen
-- [ ] `Comment` Entity erstellen
-- [ ] `CommentRepository` erstellen
-- [ ] `CommentService` erstellen
-- [ ] `CommentController` erstellen
-- [ ] `GET /api/media/{mediaId}/comments`
-- [ ] `POST /api/media/{mediaId}/comments`
-- [ ] `DELETE /api/comments/{id}`
+- [x] `Comment` Entity erstellen
+- [x] `CommentRepository` erstellen
+- [x] `CommentService` erstellen
+- [x] `CommentController` erstellen
+- [x] `GET /api/media/{mediaId}/comments`
+- [x] `POST /api/media/{mediaId}/comments`
+- [x] `DELETE /api/comments/{id}`
 
 ## 6. Rating-Bereich bauen
 - [ ] `Rating` Entity erstellen

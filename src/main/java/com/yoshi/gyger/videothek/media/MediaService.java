@@ -10,23 +10,23 @@ import java.util.List;
 @Service
 public class MediaService {
 
-    private final MediaRepository repository;
+    private final MediaRepository mediaRepository;
 
-    public MediaService(MediaRepository repository){this.repository = repository;}
+    public MediaService(MediaRepository mediaRepository){this.mediaRepository = mediaRepository;}
 
-    public List<Media> getMedias(){return repository.findAll();}
+    public List<Media> getMedias(){return mediaRepository.findAll();}
 
     public Media getMedia(@NonNull Long id) {
-        return repository.findById(id)
+        return mediaRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(id, Media.class));
     }
 
     public Media insertMedia(Media media) {
-        return repository.save(media);
+        return mediaRepository.save(media);
     }
 
     public Media updateMedia(Media media, Long id) {
-        return repository.findById(id)
+        return mediaRepository.findById(id)
                 .map(mediaOrig -> {
                     mediaOrig.setTitle(media.getTitle());
                     mediaOrig.setDescription(media.getDescription());
@@ -34,14 +34,14 @@ public class MediaService {
                     mediaOrig.setReleaseYear(media.getReleaseYear());
                     mediaOrig.setLength(media.getLength());
                     mediaOrig.setEpisodeCount(media.getEpisodeCount());
-                    mediaOrig.setMediaCategory(media.getMediaCategory());
-                    return repository.save(mediaOrig);
+                    mediaOrig.setMediaType(media.getMediaType());
+                    return mediaRepository.save(mediaOrig);
                 })
-                .orElseGet(() -> repository.save(media));
+                .orElseGet(() -> mediaRepository.save(media));
     }
 
     public MessageResponse deleteMedia(Long id) {
-        repository.deleteById(id);
+        mediaRepository.deleteById(id);
         return new MessageResponse("Media " + id + " deleted");
     }
 

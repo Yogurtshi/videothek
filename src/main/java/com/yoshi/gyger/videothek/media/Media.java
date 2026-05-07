@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import lombok.Data;
-import org.springframework.validation.annotation.Validated;
 
 @Data
 @Entity
@@ -47,13 +46,13 @@ public class Media {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private MediaCategory mediaCategory;
+    private MediaType mediaType;
 
     public Media() {
     }
 
     public Media(Long id, String title, String description, String director,
-                 Integer releaseYear, Integer length, Integer episodeCount, MediaCategory mediaCategory) {
+                 Integer releaseYear, Integer length, Integer episodeCount, MediaType mediaType) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -61,6 +60,6 @@ public class Media {
         this.releaseYear = releaseYear;
         this.length = length;
         this.episodeCount = episodeCount;
-        this.mediaCategory = mediaCategory;
+        this.mediaType = mediaType;
     }
 }

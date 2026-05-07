@@ -1,6 +1,6 @@
 package com.yoshi.gyger.videothek.media;
 
-public enum MediaCategory {
+public enum MediaType {
     MOVIE,
     SERIES
 }
