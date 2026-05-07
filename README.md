@@ -21,7 +21,7 @@
 - [x] `PUT /api/media/{id}`
 - [x] `DELETE /api/media/{id}`
 
-## 4. Suchfunktion einbauen
+## 4. Suchfunktion einbauen (Later)
 - [ ] Suche nach `title`
 - [ ] Filter nach `releaseYear`
 - [ ] Filter nach `lengthCategory`
@@ -40,13 +40,13 @@
 - [x] `DELETE /api/comments/{id}`
 
 ## 6. Rating-Bereich bauen
-- [ ] `Rating` Entity erstellen
-- [ ] `RatingRepository` erstellen
-- [ ] `RatingService` erstellen
-- [ ] `RatingController` erstellen
-- [ ] `POST /api/media/{mediaId}/ratings`
-- [ ] `GET /api/media/{mediaId}/ratings/average`
-- [ ] Sicherstellen, dass ein User pro Medium nur eine Bewertung abgeben kann
+- [x] `Rating` Entity erstellen
+- [x] `RatingRepository` erstellen
+- [x] `RatingService` erstellen
+- [x] `RatingController` erstellen
+- [x] `POST /api/media/{mediaId}/ratings`
+- [x] `GET /api/media/{mediaId}/ratings/average`
+- [x] Sicherstellen, dass ein User pro Medium nur eine Bewertung abgeben kann
 
 ## 7. Admin-Bereich bauen
 - [ ] `AdminController` erstellen
