@@ -1,5 +1,6 @@
 package com.yoshi.gyger.videothek.admin;
 
+import com.yoshi.gyger.videothek.base.MessageResponse;
 import com.yoshi.gyger.videothek.comment.Comment;
 import com.yoshi.gyger.videothek.media.Media;
 import com.yoshi.gyger.videothek.security.Roles;
@@ -10,9 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,10 +42,21 @@ public class AdminController {
         return new ResponseEntity<>(adminService.getAllComments(), HttpStatus.OK);
     }
 
+
+    @DeleteMapping("/comments/{id}")
+    @RolesAllowed(Roles.Admin)
+    @Operation(summary = "Delete comment",
+            description = "Delete a comment by ID (no username check)")
+    public ResponseEntity<MessageResponse> deleteComment(@PathVariable Long id) {
+        return ResponseEntity.ok(adminService.deleteComment(id));
+    }
+
     @GetMapping("/stats")
     @RolesAllowed(Roles.Admin)
     @Operation(summary = "Get admin dashboard statistics")
     public ResponseEntity<AdminDTO> getStats() {
         return new ResponseEntity<>(adminService.getStats(), HttpStatus.OK);
     }
+
+
 }

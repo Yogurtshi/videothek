@@ -4,6 +4,9 @@ import com.yoshi.gyger.videothek.base.MessageResponse;
 import com.yoshi.gyger.videothek.media.Media;
 import com.yoshi.gyger.videothek.media.MediaService;
 import com.yoshi.gyger.videothek.storage.EntityNotFoundException;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,25 +26,42 @@ public class CommentService {
         return commentRepository.findByMediaId(mediaId);
     }
 
-    public Comment insertComment(Long mediaId, Comment comment) {
+    public Comment insertComment(Long mediaId, CommentDTO commentDTO) {
         Media media = mediaService.getMedia(mediaId);
+
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        String username = jwt.getClaimAsString("preferred_username");
+
+        Comment comment = new Comment();
+        comment.setCommentText(commentDTO.getCommentText());
+        comment.setUsername(username);
         comment.setMedia(media);
+
         return commentRepository.save(comment);
     }
 
-    public Comment updateComment(Comment comment, Long id) {
-        return commentRepository.findById(id)
-                .map(commentOrig -> {
-                    commentOrig.setCommentText(comment.getCommentText());
-                    return commentRepository.save(commentOrig);
-                })
-                .orElseGet(() -> commentRepository.save(comment));
+    public Comment updateComment(Long id, CommentDTO commentDTO) {
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        String username = jwt.getClaimAsString("preferred_username");
+
+        Comment comment = commentRepository.findByIdAndUsername(id, username)
+                .orElseThrow(() -> new EntityNotFoundException(id, Comment.class));
+
+        comment.setCommentText(commentDTO.getCommentText());
+        return commentRepository.save(comment);
     }
 
     public MessageResponse deleteComment(Long id) {
-        commentRepository.findById(id)
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        String username = jwt.getClaimAsString("preferred_username");
+
+        Comment comment = commentRepository.findByIdAndUsername(id, username)
                 .orElseThrow(() -> new EntityNotFoundException(id, Comment.class));
-        commentRepository.deleteById(id);
+
+        commentRepository.delete(comment);
         return new MessageResponse("Comment " + id + " deleted");
     }
 }

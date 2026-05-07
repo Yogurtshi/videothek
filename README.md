@@ -21,7 +21,7 @@
 - [x] `PUT /api/media/{id}`
 - [x] `DELETE /api/media/{id}`
 
-## 4. Suchfunktion einbauen (Later)
+## 4. Suchfunktion einbauen *
 - [ ] Suche nach `title`
 - [ ] Filter nach `releaseYear`
 - [ ] Filter nach `lengthCategory`
@@ -63,10 +63,10 @@
 - [x] Prüfen, ob User und Admin unterschiedliche Rechte haben
 
 ## 9. Swagger/OpenAPI aufräumen
-- [ ] Doppelte Swagger/OpenAPI-Konfiguration bereinigen
-- [ ] Alle Endpunkte mit `@Operation` dokumentieren
+- [x] Doppelte Swagger/OpenAPI-Konfiguration bereinigen
+- [x] Alle Endpunkte mit `@Operation` dokumentieren
 - [ ] Wichtige Responses mit `@ApiResponse` dokumentieren
-- [ ] Security-Schema für Bearer Token korrekt verwenden
+- [x] Security-Schema für Bearer Token korrekt verwenden
 
 ## 10. Fehlerbehandlung ergänzen
 - [ ] Globalen `@RestControllerAdvice` erstellen
@@ -76,16 +76,18 @@
 
 ## 11. Tests ergänzen
 - [ ] Controller-Tests für `MediaController`
-- [ ] Controller-Tests für `CommentController`
-- [ ] Controller-Tests für `RatingController`
 - [ ] Service-Tests für `MediaService`
-- [ ] Tests für Suchfunktion
-- [ ] Security-Tests für Admin/User-Rechte
+- [ ] Tests für Suchfunktion *
+- [ ] Security-Tests für Admin/User-Rechte *
 
 ## 12. Projektdoku fertig machen
-- [ ] README aufräumen
+- [ ] README aufräumen *
 - [ ] API-Beschreibung ergänzen
 - [ ] ERM erstellen
 - [ ] UML-Klassendiagramm erstellen
 - [ ] Projektbeschreibung für die Abgabe schreiben
 - [ ] PDF für die Projektabnahme erstellen
+
+## 13. 
+
+* = Optional 

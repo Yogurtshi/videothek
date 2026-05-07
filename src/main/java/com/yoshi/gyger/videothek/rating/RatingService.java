@@ -2,6 +2,7 @@ package com.yoshi.gyger.videothek.rating;
 
 import com.yoshi.gyger.videothek.media.Media;
 import com.yoshi.gyger.videothek.media.MediaService;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;

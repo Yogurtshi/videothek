@@ -31,34 +31,37 @@ public class CommentController {
 
     @GetMapping("/api/media/{mediaId}/comments")
     @RolesAllowed(Roles.Read)
-    @Operation(summary = "Get all media", description = "Return list of all medias")
+    @Operation(summary = "Get all comments for a media",
+            description = "Return list of all comments for the given media ID")
     public ResponseEntity<List<Comment>> getComments(@PathVariable Long mediaId) {
         List<Comment> result = commentService.getCommentsByMedia(mediaId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping("/api/media/{mediaId}/comments")
-    @RolesAllowed({Roles.Read, Roles.Admin})
-    @Operation(summary = "Add a comment to a media")
+    @RolesAllowed(Roles.Read)
+    @Operation(summary="Add Comment", description = "Add a comment to a media")
     public ResponseEntity<Comment> addComment(
             @PathVariable Long mediaId,
-            @Valid @RequestBody Comment comment) {
-        Comment saved = commentService.insertComment(mediaId, comment);
+            @Valid @RequestBody CommentDTO  commentDTO) {
+        Comment saved = commentService.insertComment(mediaId, commentDTO);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/api/comments/{id}")
     @RolesAllowed(Roles.Admin)
-    @Operation(summary = "Delete a comment by ID")
+    @Operation(summary = "Delete comment", description = "Delete a comment by ID")
     public ResponseEntity<MessageResponse> deleteComment(@PathVariable Long id) {
         return ResponseEntity.ok(commentService.deleteComment(id));
     }
 
-    @PutMapping("api/comments/{id}")
-    @RolesAllowed(Roles.Admin)
+    @PutMapping("/api/comments/{id}")
+    @RolesAllowed(Roles.Update)
     @Operation(summary = "Update comment", description = "Update comment by ID")
-    public ResponseEntity<Comment> updateComment(@Valid @RequestBody Comment comment, @PathVariable Long id) {
-        Comment savedComment = commentService.updateComment(comment, id);
+    public ResponseEntity<Comment> updateComment(
+            @PathVariable Long id,
+            @Valid @RequestBody CommentDTO commentDTO) {
+        Comment savedComment = commentService.updateComment(id, commentDTO);
         return new ResponseEntity<>(savedComment, HttpStatus.OK);
     }
 }

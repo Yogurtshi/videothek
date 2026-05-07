@@ -34,7 +34,6 @@ public class Media {
     @Column(nullable = false)
     private Integer releaseYear;
 
-    @NotNull
     @Positive
     @Column(nullable = false)
     private Integer length;

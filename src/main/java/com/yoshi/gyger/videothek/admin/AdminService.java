@@ -1,5 +1,6 @@
 package com.yoshi.gyger.videothek.admin;
 
+import com.yoshi.gyger.videothek.base.MessageResponse;
 import com.yoshi.gyger.videothek.comment.Comment;
 import com.yoshi.gyger.videothek.comment.CommentRepository;
 import com.yoshi.gyger.videothek.media.Media;
@@ -30,6 +31,11 @@ public class AdminService {
 
     public List<Comment> getAllComments() {
         return commentRepository.findAll();
+    }
+
+    public MessageResponse deleteComment(Long id){
+        commentRepository.deleteById(id);
+        return new MessageResponse("Comment " + id + " deleted");
     }
 
     public AdminDTO getStats() {
