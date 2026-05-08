@@ -1,4 +1,4 @@
-package com.yoshi.gyger.videothek.rating;
+package com.yoshi.gyger.videothek.storage;
 
 public class DuplicateRatingException extends RuntimeException {
 

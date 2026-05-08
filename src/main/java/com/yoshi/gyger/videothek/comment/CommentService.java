@@ -5,6 +5,7 @@ import com.yoshi.gyger.videothek.media.Media;
 import com.yoshi.gyger.videothek.media.MediaService;
 import com.yoshi.gyger.videothek.storage.EntityNotFoundException;
 
+import com.yoshi.gyger.videothek.storage.UnauthorizedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
@@ -46,8 +47,12 @@ public class CommentService {
                 .getAuthentication().getPrincipal();
         String username = jwt.getClaimAsString("preferred_username");
 
-        Comment comment = commentRepository.findByIdAndUsername(id, username)
+        Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id, Comment.class));
+
+        if (!comment.getUsername().equals(username)) {
+            throw new UnauthorizedException("You are not the creator of this comment");
+        }
 
         comment.setCommentText(commentDTO.getCommentText());
         return commentRepository.save(comment);
@@ -58,8 +63,12 @@ public class CommentService {
                 .getAuthentication().getPrincipal();
         String username = jwt.getClaimAsString("preferred_username");
 
-        Comment comment = commentRepository.findByIdAndUsername(id, username)
+        Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id, Comment.class));
+
+        if (!comment.getUsername().equals(username)) {
+            throw new UnauthorizedException("You are not the creator of this comment");
+        }
 
         commentRepository.delete(comment);
         return new MessageResponse("Comment " + id + " deleted");

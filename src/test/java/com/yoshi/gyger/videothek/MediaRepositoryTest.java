@@ -17,6 +17,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+
+/*
+JPA Repository Tests
+ */
+
 @DataJpaTest()
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(false)
@@ -25,6 +30,7 @@ class MediaRepositoryTest {
     @Autowired
     private MediaRepository mediaRepository;
 
+    // POST TEST
     @Test
     void insertMedia() {
         Media movie = this.mediaRepository.save(new Media(
@@ -36,12 +42,14 @@ class MediaRepositoryTest {
         Assertions.assertNotNull(series.getId());
     }
 
+    // GET TEST
     @Test
     void findAllMedia() {
         List<Media> all = mediaRepository.findAll();
         assertFalse(all.isEmpty());
     }
 
+    // PUT TEST
     @Test
     void updateMedia() {
         Media saved = this.mediaRepository.save(new Media(
@@ -55,6 +63,7 @@ class MediaRepositoryTest {
         assertEquals("New Desc", updated.getDescription());
     }
 
+    // DELETE TEST
     @Test
     void deleteMedia() {
         Media saved = this.mediaRepository.save(new Media(

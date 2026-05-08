@@ -2,6 +2,7 @@ package com.yoshi.gyger.videothek.rating;
 
 import com.yoshi.gyger.videothek.media.Media;
 import com.yoshi.gyger.videothek.media.MediaService;
+import com.yoshi.gyger.videothek.storage.DuplicateRatingException;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
