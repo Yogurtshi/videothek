@@ -45,13 +45,13 @@ public class Media {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private MediaType mediaType;
+    private MediaCategory mediaCategory;
 
     public Media() {
     }
 
     public Media(Long id, String title, String description, String director,
-                 Integer releaseYear, Integer length, Integer episodeCount, MediaType mediaType) {
+                 Integer releaseYear, Integer length, Integer episodeCount, MediaCategory mediaCategory) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -59,6 +59,6 @@ public class Media {
         this.releaseYear = releaseYear;
         this.length = length;
         this.episodeCount = episodeCount;
-        this.mediaType = mediaType;
+        this.mediaCategory = mediaCategory;
     }
 }

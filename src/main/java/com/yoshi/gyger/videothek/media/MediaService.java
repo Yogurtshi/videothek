@@ -34,7 +34,7 @@ public class MediaService {
                     mediaOrig.setReleaseYear(media.getReleaseYear());
                     mediaOrig.setLength(media.getLength());
                     mediaOrig.setEpisodeCount(media.getEpisodeCount());
-                    mediaOrig.setMediaType(media.getMediaType());
+                    mediaOrig.setMediaCategory(media.getMediaCategory());
                     return mediaRepository.save(mediaOrig);
                 })
                 .orElseGet(() -> mediaRepository.save(media));

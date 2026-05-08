@@ -88,6 +88,9 @@
 - [ ] Projektbeschreibung für die Abgabe schreiben
 - [ ] PDF für die Projektabnahme erstellen
 
-## 13. 
+## 13. Ende vom Projekt
+- [ ] Doku überprüfen
+- [ ] Code überprüfen
+- [ ] Tests überprüfen
 
 * = Optional 
