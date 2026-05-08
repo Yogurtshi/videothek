@@ -35,7 +35,7 @@ public class Media {
     private Integer releaseYear;
 
     @Positive
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer length;
 
     @Min(1)
