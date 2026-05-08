@@ -43,6 +43,8 @@ public class CommentService {
     }
 
     public Comment updateComment(Long id, CommentDTO commentDTO) {
+
+        // CHECKS WITH THE TOKEN PREFERRED_USERNAME IF THE COMMENT BELONGS TO USER
         Jwt jwt = (Jwt) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         String username = jwt.getClaimAsString("preferred_username");
@@ -59,6 +61,8 @@ public class CommentService {
     }
 
     public MessageResponse deleteComment(Long id) {
+
+        // CHECKS WITH THE TOKEN PREFERRED_USERNAME IF THE COMMENT BELONGS TO USER
         Jwt jwt = (Jwt) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         String username = jwt.getClaimAsString("preferred_username");

@@ -20,6 +20,8 @@ public class RatingService {
     }
 
     public Rating insertRating(Long mediaId, RatingDTO ratingDTO) {
+
+        // CHECKS WITH THE TOKEN PREFERRED_USERNAME IF THE USER ALREADY RATED
         Jwt jwt = (Jwt) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         String username = jwt.getClaimAsString("preferred_username");

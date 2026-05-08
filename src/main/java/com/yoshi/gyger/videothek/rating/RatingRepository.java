@@ -10,6 +10,7 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
 
     Optional<Rating> findByMediaIdAndUsername(Long mediaId, String username);
 
+    // AVERAGE SCORE OF MEDIA
     @Query("SELECT AVG(r.score) FROM Rating r WHERE r.media.id = :mediaId")
     Optional<Double> findAverageScoreByMediaId(@Param("mediaId") Long mediaId);
 }

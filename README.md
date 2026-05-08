@@ -65,18 +65,18 @@
 ## 9. Swagger/OpenAPI aufräumen
 - [x] Doppelte Swagger/OpenAPI-Konfiguration bereinigen
 - [x] Alle Endpunkte mit `@Operation` dokumentieren
-- [ ] Wichtige Responses mit `@ApiResponse` dokumentieren
+- [x] Wichtige Responses mit `@ApiResponse` dokumentieren
 - [x] Security-Schema für Bearer Token korrekt verwenden
 
-## 10. Fehlerbehandlung ergänzen
-- [ ] Globalen `@RestControllerAdvice` erstellen
-- [ ] `EntityNotFoundException` sauber als 404 zurückgeben
-- [ ] Validierungsfehler sauber als JSON zurückgeben
-- [ ] Einheitliches Fehlerformat definieren
+## 10. Fehlerbehandlung ergänzen 
+- [ ] Globalen `@RestControllerAdvice` erstellen *
+- [x] `EntityNotFoundException` sauber als 404 zurückgeben
+- [x] Validierungsfehler sauber als JSON zurückgeben
+- [x] Einheitliches Fehlerformat definieren
 
 ## 11. Tests ergänzen
-- [ ] Controller-Tests für `MediaController`
-- [ ] Service-Tests für `MediaService`
+- [x] Controller-Tests für `MediaController`
+- [x] Service-Tests für `MediaService`
 - [ ] Tests für Suchfunktion *
 - [ ] Security-Tests für Admin/User-Rechte *
 
