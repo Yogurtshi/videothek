@@ -5,11 +5,7 @@ import { AppRoles } from './app.roles';
 import { NoAccess } from './pages/no-access/no-access';
 
 export const routes: Routes = [
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'media'
-  },
+
   {
     path: 'media',
     loadComponent: () => import('./pages/media-list/media-list')
@@ -45,8 +41,4 @@ export const routes: Routes = [
     path: 'noaccess',
     component: NoAccess
   },
-  {
-    path: '**',
-    redirectTo: 'media'
-  }
 ];
