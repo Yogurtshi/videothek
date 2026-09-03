@@ -28,13 +28,11 @@ export class AppAuthService {
   private _accessToken = '';
   get accessToken() { return this._accessToken; }
 
-  async initAuth(): Promise<any> {
-    return new Promise<void>(() => {
-      this.oauthService.configure(this.authConfig);
-      this.oauthService.events.subscribe(e => this.handleEvents(e));
-      this.oauthService.loadDiscoveryDocumentAndTryLogin();
-      this.oauthService.setupAutomaticSilentRefresh();
-    });
+  async initAuth(): Promise<void> {
+    this.oauthService.configure(this.authConfig);
+    this.oauthService.events.subscribe(e => this.handleEvents(e));
+    await this.oauthService.loadDiscoveryDocumentAndTryLogin();
+    this.oauthService.setupAutomaticSilentRefresh();
   }
 
   public getRoles(): Observable<Array<string>> {

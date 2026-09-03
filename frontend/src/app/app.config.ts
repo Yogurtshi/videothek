@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, inject, provideBrowserGlobalErrorListeners, provideEnvironmentInitializer } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, inject, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -26,6 +26,6 @@ export const appConfig: ApplicationConfig = {
     provideOAuthClient({
       resourceServer: { sendAccessToken: true, allowedUrls: [environment.backendBaseUrl] }
     }),
-    provideEnvironmentInitializer(() => { inject(AppAuthService).initAuth().finally(); })
+    provideAppInitializer(() => inject(AppAuthService).initAuth())
   ]
 };
