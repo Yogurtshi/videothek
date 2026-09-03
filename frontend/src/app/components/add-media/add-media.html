@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Media hinzufügen</h2>
+
+<mat-dialog-content>
+	<form class="media-form" [formGroup]="mediaForm" (ngSubmit)="submit()">
+		<mat-form-field class="media-field" appearance="outline">
+			<mat-label>Titel</mat-label>
+			<input matInput formControlName="title" />
+			@if (mediaForm.controls.title.hasError('required')) {
+				<mat-error>Bitte einen Titel eingeben.</mat-error>
+			}
+		</mat-form-field>
+
+		<mat-form-field class="media-field" appearance="outline">
+			<mat-label>Erscheinungsjahr</mat-label>
+			<input matInput type="number" formControlName="releaseYear" />
+			@if (mediaForm.controls.releaseYear.invalid && mediaForm.controls.releaseYear.touched) {
+				<mat-error>Jahr zwischen 1888 und 2100 eingeben.</mat-error>
+			}
+		</mat-form-field>
+
+		<mat-form-field class="media-field" appearance="outline">
+			<mat-label>Regie</mat-label>
+			<input matInput formControlName="director" />
+			@if (mediaForm.controls.director.hasError('required')) {
+				<mat-error>Bitte eine Regie angeben.</mat-error>
+			}
+		</mat-form-field>
+
+		<mat-radio-group class="media-type" formControlName="mediaCategory" aria-label="Medienart">
+			<mat-radio-button [value]="'MOVIE'">Film</mat-radio-button>
+			<mat-radio-button [value]="'SERIES'">Serie</mat-radio-button>
+		</mat-radio-group>
+
+		@if (mediaForm.controls.mediaCategory.value === 'MOVIE') {
+			<mat-form-field class="media-field" appearance="outline">
+				<mat-label>Laufzeit (bei Film)</mat-label>
+				<input matInput type="number" formControlName="length" min="1" />
+			</mat-form-field>
+		} @else {
+			<mat-form-field class="media-field" appearance="outline">
+				<mat-label>Episoden (bei Serie)</mat-label>
+				<input matInput type="number" formControlName="episodeCount" min="1" />
+			</mat-form-field>
+		}
+
+		<mat-form-field class="media-field" appearance="outline">
+			<mat-label>Beschreibung</mat-label>
+			<textarea matInput formControlName="description" rows="3"></textarea>
+		</mat-form-field>
+	</form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+	<button mat-button type="button" (click)="cancel()">Abbrechen</button>
+	<button mat-flat-button color="primary" type="submit" [disabled]="mediaForm.invalid" (click)="submit()">Media hinzufügen</button>
+</mat-dialog-actions>

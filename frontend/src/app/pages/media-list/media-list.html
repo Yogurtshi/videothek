@@ -1,6 +1,12 @@
 
 <section class="media-list">
-  <h1>Medien</h1>
+  <div class="media-list-header">
+    <h1>Medien</h1>
+    <button mat-flat-button *appIsInRoles="['admin']" (click)="openAddDialog()">
+      <mat-icon>add</mat-icon>
+      Media hinzufügen
+    </button>
+  </div>
 
   @if (mediaList().length === 0) {
     <p>Keine Medien gefunden.</p>
@@ -23,12 +29,14 @@
         </mat-card-content>
 
         <mat-card-actions align="end">
-          <button mat-icon-button aria-label="Bearbeiten" (click)="$event.stopPropagation(); onEdit(item)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button aria-label="Löschen" (click)="$event.stopPropagation(); onDelete(item)">
-            <mat-icon>delete</mat-icon>
-          </button>
+          <ng-container *appIsInRoles="['admin']">
+            <button mat-icon-button aria-label="Bearbeiten" (click)="$event.stopPropagation(); onEdit(item)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button aria-label="Löschen" (click)="$event.stopPropagation(); onDelete(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </ng-container>
         </mat-card-actions>
       </mat-card>
     }
