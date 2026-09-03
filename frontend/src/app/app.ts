@@ -1,14 +1,22 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Navbar } from "./components/navbar/navbar";
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { Navbar } from './components/navbar/navbar';
+import { Login } from './components/login/login';
 
 @Component({
-  imports: [RouterOutlet, Navbar],
   selector: 'app-root',
-  styleUrl: './app.scss',
   templateUrl: './app.html',
+  styleUrl: './app.scss',
+  imports: [RouterOutlet, MatToolbar, MatIconButton, MatIcon, MatSidenavModule, Navbar, Login]
 })
 export class App {
-  protected readonly title = signal('frontend');
+  public sidenavOpened = false;
 
+  public toggleSidenav(): void {
+    this.sidenavOpened = !this.sidenavOpened;
+  }
 }

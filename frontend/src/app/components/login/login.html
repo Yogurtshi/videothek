@@ -1,0 +1,7 @@
+@if (isAuthenticated()) {
+  <span class="navbar-user">{{ useralias || username }}</span>
+  <span class="navbar-role-badge" *appIsInRoles="['admin']">admin</span>
+  <button type="button" (click)="logout()">Logout</button>
+} @else {
+  <button type="button" (click)="login()">Login</button>
+}

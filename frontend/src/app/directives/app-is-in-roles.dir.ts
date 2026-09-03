@@ -1,10 +1,10 @@
-import {Directive, inject, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {AppAuthService} from '../service/app.auth.service';
+import { Directive, inject, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AppAuthService } from '../service/app.auth.service';
 
 @Directive({
-    selector: '[appIsInRoles]'
+  selector: '[appIsInRoles]'
 })
 export class IsInRolesDirective implements OnInit, OnDestroy {
 
@@ -13,35 +13,31 @@ export class IsInRolesDirective implements OnInit, OnDestroy {
   private authService = inject(AppAuthService);
 
   @Input() appIsInRoles?: string[];
-  stop$ = new Subject();
+  stop$ = new Subject<void>();
   isVisible = false;
 
   ngOnInit() {
     this.authService.getRoles().pipe(
       takeUntil(this.stop$)
-    ).subscribe(roles => {
-      if (!roles) {
-        this.viewContainerRef.clear();
-      }
-      let found = true;
-      this.appIsInRoles?.forEach(r => {
-        if (!roles.includes(r)) {
-          found = false;
-        }
-      });
-      if (found) {
-        if (!this.isVisible) {
+    ).subscribe({
+      next: (roles) => {
+        const userRoles = roles ?? [];
+        const found = (this.appIsInRoles ?? []).every(r => userRoles.includes(r));
+
+        if (found && !this.isVisible) {
           this.isVisible = true;
           this.viewContainerRef.createEmbeddedView(this.templateRef);
+        } else if (!found && this.isVisible) {
+          this.isVisible = false;
+          this.viewContainerRef.clear();
         }
-      } else {
-        this.isVisible = false;
-        this.viewContainerRef.clear();
-      }
+      },
+      error: (err) => console.error('IsInRolesDirective role check failed:', err)
     });
   }
 
   ngOnDestroy() {
-    this.stop$.next(null);
+    this.stop$.next();
+    this.stop$.complete();
   }
 }

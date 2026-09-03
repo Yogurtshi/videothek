@@ -1,23 +1,13 @@
-<nav class="navbar">
-  <a class="navbar-brand" routerLink="/media">Videothek</a>
+<mat-nav-list style="border-radius: 0">
 
-  <ul class="navbar-links">
-    <li>
-      <a routerLink="/media" routerLinkActive="active">Media</a>
-    </li>
+  <a mat-list-item style="border-radius: 0" *appIsInRoles="['admin']" routerLink="/admin/dashboard" routerLinkActive="active-link" (click)="onLinkClick()">
+    <mat-icon matListItemIcon>dashboard</mat-icon>
+    <span matListItemTitle>Dashboard</span>
+  </a>
 
-    <li *appIsInRoles="['admin']">
-      <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
-    </li>
-  </ul>
+  <a mat-list-item style="border-radius: 0" routerLink="/media" routerLinkActive="active-link" (click)="onLinkClick()">
+    <mat-icon matListItemIcon>movie</mat-icon>
+    <span matListItemTitle>Media</span>
+  </a>
 
-  <div class="navbar-actions">
-    @if (isAuthenticated()) {
-      <span class="navbar-user">{{ useralias || username }}</span>
-      <span class="navbar-role-badge" *appIsInRoles="['admin']">admin</span>
-      <button type="button" (click)="logout()">Logout</button>
-    } @else {
-      <button type="button" (click)="login()">Login</button>
-    }
-  </div>
-</nav>
+</mat-nav-list>

@@ -1,39 +1,19 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AppAuthService } from '../../service/app.auth.service';
+import { MatListModule } from '@angular/material/list';
+import { MatIcon } from '@angular/material/icon';
 import { IsInRolesDirective } from '../../directives/app-is-in-roles.dir';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
-  imports: [RouterLink, RouterLinkActive, IsInRolesDirective]
+  imports: [RouterLink, RouterLinkActive, MatListModule, MatIcon, IsInRolesDirective]
 })
-export class Navbar implements OnInit {
+export class Navbar {
+  @Output() linkClicked = new EventEmitter<void>();
 
-  private authService = inject(AppAuthService);
-
-  public username = '';
-  public useralias = '';
-
-  ngOnInit(): void {
-    this.authService.usernameObservable.subscribe(name => {
-      this.username = name;
-    });
-    this.authService.useraliasObservable.subscribe(alias => {
-      this.useralias = alias;
-    });
-  }
-
-  public isAuthenticated(): boolean {
-    return this.authService.isAuthenticated();
-  }
-
-  public login(): void {
-    this.authService.login();
-  }
-
-  public logout(): void {
-    this.authService.logout();
+  public onLinkClick(): void {
+    this.linkClicked.emit();
   }
 }

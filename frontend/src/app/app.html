@@ -1,2 +1,23 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary" class="app-toolbar" style="border-radius: 0">
+  <button mat-icon-button (click)="toggleSidenav()" aria-label="Menü öffnen">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="app-toolbar__title">Videothek</span>
+
+  <span class="app-toolbar__spacer"></span>
+
+  <app-login></app-login>
+</mat-toolbar>
+
+<mat-sidenav-container class="app-container" style="border-radius: 0">
+  <mat-sidenav #sidenav mode="over" style="border-radius: 0" [opened]="sidenavOpened" (closedStart)="sidenavOpened = false">
+    <app-navbar (linkClicked)="sidenavOpened = false"></app-navbar>
+  </mat-sidenav>
+
+  <mat-sidenav-content style="border-radius: 0">
+    <main class="app-content">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>V
