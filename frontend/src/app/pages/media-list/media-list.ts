@@ -4,7 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { MediaService } from '../../service/media';
 import { Media } from '../../data/media';
 import { MatCardModule } from '@angular/material/card';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatChip, MatChipSet } from '@angular/material/chips';
 
@@ -12,7 +12,7 @@ import { MatChip, MatChipSet } from '@angular/material/chips';
   selector: 'app-media-list',
   templateUrl: './media-list.html',
   styleUrl: './media-list.scss',
-  imports: [MatCardModule, MatButton, MatIconButton, MatIcon, MatChip, MatChipSet, RouterLink]
+  imports: [MatCardModule, MatIconButton, MatIcon, MatChip, MatChipSet, RouterLink]
 })
 export class MediaList implements OnInit {
 
