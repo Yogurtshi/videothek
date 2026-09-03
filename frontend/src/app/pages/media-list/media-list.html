@@ -8,10 +8,10 @@
 
   <div class="media-grid">
     @for (item of mediaList(); track item.id) {
-      <mat-card class="media-card">
+      <mat-card class="media-card" [routerLink]="['/media', item.id]">
         <mat-card-header>
           <mat-card-title>
-            <a [routerLink]="['/media', item.id]">{{ item.title }}</a>
+            {{ item.title }}
           </mat-card-title>
           <mat-card-subtitle>{{ item.releaseYear }} · {{ item.director }}</mat-card-subtitle>
         </mat-card-header>
@@ -23,10 +23,10 @@
         </mat-card-content>
 
         <mat-card-actions align="end">
-          <button mat-icon-button aria-label="Bearbeiten" (click)="onEdit(item)">
+          <button mat-icon-button aria-label="Bearbeiten" (click)="$event.stopPropagation(); onEdit(item)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button aria-label="Löschen" (click)="onDelete(item)">
+          <button mat-icon-button aria-label="Löschen" (click)="$event.stopPropagation(); onDelete(item)">
             <mat-icon>delete</mat-icon>
           </button>
         </mat-card-actions>
