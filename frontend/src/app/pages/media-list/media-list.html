@@ -1,3 +1,4 @@
+
 <section class="media-list">
   <h1>Medien</h1>
 
@@ -5,13 +6,31 @@
     <p>Keine Medien gefunden.</p>
   }
 
-  <ul>
+  <div class="media-grid">
     @for (item of mediaList; track item.id) {
-      <li>
-        <a [routerLink]="['/media', item.id]">
-          {{ item.title }} ({{ item.releaseYear }})
-        </a>
-      </li>
+      <mat-card class="media-card">
+        <mat-card-header>
+          <mat-card-title>
+            <a [routerLink]="['/media', item.id]">{{ item.title }}</a>
+          </mat-card-title>
+          <mat-card-subtitle>{{ item.releaseYear }} · {{ item.director }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <mat-chip-set>
+            <mat-chip>{{ item.mediaCategory }}</mat-chip>
+          </mat-chip-set>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button mat-icon-button aria-label="Bearbeiten" (click)="onEdit(item)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Löschen" (click)="onDelete(item)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
     }
-  </ul>
+  </div>
 </section>
