@@ -1,0 +1,14 @@
+
+<section class="admin-dashboard">
+  <h1>Admin Dashboard</h1>
+
+  @if (stats) {
+    <ul class="stats">
+      <li>Medien: {{ stats.mediaCount }}</li>
+      <li>Kommentare: {{ stats.commentCount }}</li>
+      <li>Bewertungen: {{ stats.ratingCount }}</li>
+    </ul>
+  } @else {
+    <p>Lade Statistiken...</p>
+  }
+</section>

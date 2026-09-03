@@ -1,0 +1,44 @@
+
+@if (media) {
+  <section class="media-detail">
+    <a routerLink="/media">&larr; Zurück zur Übersicht</a>
+
+    <h1>{{ media.title }}</h1>
+    <p>{{ media.description }}</p>
+
+    <dl>
+      <dt>Regie</dt>
+      <dd>{{ media.director }}</dd>
+
+      <dt>Erscheinungsjahr</dt>
+      <dd>{{ media.releaseYear }}</dd>
+
+      <dt>Kategorie</dt>
+      <dd>{{ media.mediaCategory }}</dd>
+
+      @if (media.length) {
+        <dt>Länge</dt>
+        <dd>{{ media.length }} Minuten</dd>
+      }
+
+      @if (media.episodeCount) {
+        <dt>Episoden</dt>
+        <dd>{{ media.episodeCount }}</dd>
+      }
+    </dl>
+
+    @if (averageRating !== null) {
+      <p>Durchschnittliche Bewertung: {{ averageRating }}</p>
+    }
+
+    <h2>Kommentare</h2>
+    @if (comments.length === 0) {
+      <p>Noch keine Kommentare.</p>
+    }
+    <ul>
+      @for (comment of comments; track comment.id) {
+        <li>{{ comment.commentText }}</li>
+      }
+    </ul>
+  </section>
+}
