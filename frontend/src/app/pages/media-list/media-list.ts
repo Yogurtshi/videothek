@@ -37,7 +37,8 @@ export class MediaList implements OnInit {
 
   public onEdit(item: Media): void {
     const dialogRef = this.dialog.open(MediaModal, {
-      width: 'min(92vw, 560px)',
+      width: '640px',
+      panelClass: 'media-modal-panel',
       data: item
     });
 
@@ -55,7 +56,10 @@ export class MediaList implements OnInit {
   }
 
   public openAddDialog(): void {
-    const dialogRef = this.dialog.open(MediaModal, { width: 'min(92vw, 560px)' });
+    const dialogRef = this.dialog.open(MediaModal, {
+      width: '640px',
+      panelClass: 'media-modal-panel'
+    });
 
     dialogRef.afterClosed().subscribe((media?: Media) => {
       if (!media) {

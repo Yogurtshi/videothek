@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-login',
   templateUrl: './login.html',
   styleUrl: './login.scss',
-  imports: [IsInRolesDirective, MatButtonModule]
+  imports: [MatButtonModule]
 })
 export class Login implements OnInit {
 

@@ -33,12 +33,12 @@
 
 		@if (mediaForm.controls.mediaCategory.value === 'MOVIE') {
 			<mat-form-field class="media-field" appearance="outline">
-				<mat-label>Laufzeit (bei Film)</mat-label>
+				<mat-label>Laufzeit</mat-label>
 				<input matInput type="number" formControlName="length" min="1" />
 			</mat-form-field>
 		} @else {
 			<mat-form-field class="media-field" appearance="outline">
-				<mat-label>Episoden (bei Serie)</mat-label>
+				<mat-label>Episoden</mat-label>
 				<input matInput type="number" formControlName="episodeCount" min="1" />
 			</mat-form-field>
 		}
