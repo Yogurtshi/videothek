@@ -53,7 +53,9 @@ export class MediaModal {
 
     const value = this.mediaForm.getRawValue();
     const media = new Media();
-    media.id = this.dialogData?.id;
+    if (this.dialogData) {
+      media.id = this.dialogData.id;
+    }
     media.title = value.title.trim();
     media.description = value.description.trim();
     media.director = value.director.trim();
