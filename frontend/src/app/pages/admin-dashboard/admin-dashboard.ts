@@ -1,5 +1,5 @@
 
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AdminService } from '../../service/admin';
 import { AdminStats } from '../../data/admin-stats';
 
@@ -13,11 +13,11 @@ export class AdminDashboard implements OnInit {
 
   private adminService = inject(AdminService);
 
-  public stats?: AdminStats;
+  public stats = signal<AdminStats | undefined>(undefined);
 
   ngOnInit(): void {
     this.adminService.getStats().subscribe({
-      next: (stats) => this.stats = stats,
+      next: (stats) => this.stats.set(stats),
       error: (err) => console.error('Failed to load admin stats:', err)
     });
   }

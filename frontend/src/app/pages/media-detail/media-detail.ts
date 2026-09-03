@@ -1,5 +1,5 @@
 
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MediaService } from '../../service/media';
 import { CommentService } from '../../service/comment';
@@ -20,9 +20,9 @@ export class MediaDetail implements OnInit {
   private commentService = inject(CommentService);
   private ratingService = inject(RatingService);
 
-  public media?: Media;
-  public comments: Comment[] = [];
-  public averageRating: number | null = null;
+  public media = signal<Media | undefined>(undefined);
+  public comments = signal<Comment[]>([]);
+  public averageRating = signal<number | null>(null);
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -31,17 +31,17 @@ export class MediaDetail implements OnInit {
     }
 
     this.mediaService.getOne(id).subscribe({
-      next: (media) => this.media = media,
+      next: (media) => this.media.set(media),
       error: (err) => console.error('Failed to load media:', err)
     });
 
     this.commentService.getByMedia(id).subscribe({
-      next: (comments) => this.comments = comments,
+      next: (comments) => this.comments.set(comments),
       error: (err) => console.error('Failed to load comments:', err)
     });
 
     this.ratingService.getAverage(id).subscribe({
-      next: (average) => this.averageRating = average,
+      next: (average) => this.averageRating.set(average),
       error: (err) => console.error('Failed to load average rating:', err)
     });
   }

@@ -2,12 +2,12 @@
 <section class="media-list">
   <h1>Medien</h1>
 
-  @if (mediaList.length === 0) {
+  @if (mediaList().length === 0) {
     <p>Keine Medien gefunden.</p>
   }
 
   <div class="media-grid">
-    @for (item of mediaList; track item.id) {
+    @for (item of mediaList(); track item.id) {
       <mat-card class="media-card">
         <mat-card-header>
           <mat-card-title>

@@ -1,5 +1,5 @@
 
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MediaService } from '../../service/media';
 import { Media } from '../../data/media';
@@ -19,7 +19,7 @@ export class MediaList implements OnInit {
   private mediaService = inject(MediaService);
   private router = inject(Router);
 
-  public mediaList: Media[] = [];
+  public mediaList = signal<Media[]>([]);
 
   ngOnInit(): void {
     this.loadList();
@@ -27,7 +27,7 @@ export class MediaList implements OnInit {
 
   private loadList(): void {
     this.mediaService.getList().subscribe({
-      next: (media) => this.mediaList = media,
+      next: (media) => this.mediaList.set(media),
       error: (err) => console.error('Failed to load media list:', err)
     });
   }
@@ -41,7 +41,7 @@ export class MediaList implements OnInit {
       return;
     }
     this.mediaService.delete(item.id).subscribe({
-      next: () => this.mediaList = this.mediaList.filter(m => m.id !== item.id),
+      next: () => this.mediaList.update(media => media.filter(m => m.id !== item.id)),
       error: (err) => console.error('Failed to delete media:', err)
     });
   }
