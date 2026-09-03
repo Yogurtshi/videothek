@@ -10,6 +10,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatChip, MatChipSet } from '@angular/material/chips';
 import { IsInRolesDirective } from '../../directives/app-is-in-roles.dir';
 import { MediaModal } from '../../components/media-modal/media-modal';
+import { ConfirmDialog, ConfirmDialogData } from '../../components/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-media-list',
@@ -73,12 +74,23 @@ export class MediaList implements OnInit {
   }
 
   public onDelete(item: Media): void {
-    if (!confirm(`"${item.title}" wirklich löschen?`)) {
-      return;
-    }
-    this.mediaService.delete(item.id).subscribe({
-      next: () => this.mediaList.update(media => media.filter(m => m.id !== item.id)),
-      error: (err) => console.error('Failed to delete media:', err)
+    const dialogRef = this.dialog.open<ConfirmDialog, ConfirmDialogData, boolean>(ConfirmDialog, {
+      width: '560px',
+      maxWidth: 'calc(100vw - 32px)',
+      data: {
+        title: 'Medium löschen',
+        message: `Möchtest du "${item.title}" wirklich löschen?`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (!confirmed) {
+        return;
+      }
+      this.mediaService.delete(item.id).subscribe({
+        next: () => this.mediaList.update(media => media.filter(m => m.id !== item.id)),
+        error: (err) => console.error('Failed to delete media:', err)
+      });
     });
   }
 }
