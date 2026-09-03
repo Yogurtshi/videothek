@@ -1,8 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Navbar } from "./components/navbar/navbar";
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Navbar],
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',

@@ -6,19 +6,15 @@
       <a routerLink="/media" routerLinkActive="active">Media</a>
     </li>
 
-    @if (isAdmin) {
-      <li>
-        <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
-      </li>
-    }
+    <li *appIsInRoles="['admin']">
+      <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+    </li>
   </ul>
 
   <div class="navbar-actions">
     @if (isAuthenticated()) {
       <span class="navbar-user">{{ useralias || username }}</span>
-      @if (isAdmin) {
-        <span class="navbar-role-badge">admin</span>
-      }
+      <span class="navbar-role-badge" *appIsInRoles="['admin']">admin</span>
       <button type="button" (click)="logout()">Logout</button>
     } @else {
       <button type="button" (click)="login()">Login</button>
