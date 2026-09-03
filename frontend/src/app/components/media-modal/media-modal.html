@@ -1,7 +1,7 @@
-<h2 mat-dialog-title>Media hinzufügen</h2>
+<h2 mat-dialog-title>{{ isEditMode ? 'Media bearbeiten' : 'Media hinzufügen' }}</h2>
 
 <mat-dialog-content>
-	<form class="media-form" [formGroup]="mediaForm" (ngSubmit)="submit()">
+	<form id="media-form" class="media-form" [formGroup]="mediaForm" (ngSubmit)="submit()">
 		<mat-form-field class="media-field" appearance="outline">
 			<mat-label>Titel</mat-label>
 			<input matInput formControlName="title" />
@@ -52,5 +52,5 @@
 
 <mat-dialog-actions align="end">
 	<button mat-button type="button" (click)="cancel()">Abbrechen</button>
-	<button mat-flat-button color="primary" type="submit" [disabled]="mediaForm.invalid" (click)="submit()">Media hinzufügen</button>
+	<button mat-flat-button color="primary" type="submit" form="media-form" [disabled]="mediaForm.invalid">{{ isEditMode ? 'Speichern' : 'Media hinzufügen' }}</button>
 </mat-dialog-actions>

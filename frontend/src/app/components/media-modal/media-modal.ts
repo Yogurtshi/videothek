@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -9,13 +10,14 @@ import { MediaCategory } from '../../data/media-category';
 import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
-  selector: 'app-add-media',
-  templateUrl: './add-media.html',
-  styleUrl: './add-media.scss',
+  selector: 'app-media-modal',
+  templateUrl: './media-modal.html',
+  styleUrl: './media-modal.scss',
   imports: [ReactiveFormsModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatRadioModule]
 })
-export class AddMedia {
-  private dialogRef = inject(MatDialogRef<AddMedia>);
+export class MediaModal {
+  private dialogRef = inject(MatDialogRef<MediaModal>);
+  private dialogData = inject<Media | null>(MAT_DIALOG_DATA, { optional: true });
 
   public mediaForm = new FormGroup({
     title: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.maxLength(255)] }),
@@ -27,6 +29,22 @@ export class AddMedia {
     mediaCategory: new FormControl(MediaCategory.MOVIE, { nonNullable: true, validators: Validators.required })
   });
 
+  public isEditMode = this.dialogData !== null;
+
+  constructor() {
+    if (this.dialogData) {
+      this.mediaForm.patchValue({
+        title: this.dialogData.title,
+        description: this.dialogData.description,
+        director: this.dialogData.director,
+        releaseYear: this.dialogData.releaseYear,
+        length: this.dialogData.length ?? null,
+        episodeCount: this.dialogData.episodeCount ?? null,
+        mediaCategory: this.dialogData.mediaCategory as MediaCategory
+      });
+    }
+  }
+
   public submit(): void {
     if (this.mediaForm.invalid) {
       this.mediaForm.markAllAsTouched();
@@ -35,6 +53,7 @@ export class AddMedia {
 
     const value = this.mediaForm.getRawValue();
     const media = new Media();
+    media.id = this.dialogData?.id;
     media.title = value.title.trim();
     media.description = value.description.trim();
     media.director = value.director.trim();

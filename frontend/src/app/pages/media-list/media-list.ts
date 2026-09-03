@@ -1,6 +1,6 @@
 
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MediaService } from '../../service/media';
 import { Media } from '../../data/media';
@@ -9,7 +9,7 @@ import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatChip, MatChipSet } from '@angular/material/chips';
 import { IsInRolesDirective } from '../../directives/app-is-in-roles.dir';
-import { AddMedia } from '../../components/add-media/add-media';
+import { MediaModal } from '../../components/media-modal/media-modal';
 
 @Component({
   selector: 'app-media-list',
@@ -20,7 +20,6 @@ import { AddMedia } from '../../components/add-media/add-media';
 export class MediaList implements OnInit {
 
   private mediaService = inject(MediaService);
-  private router = inject(Router);
   private dialog = inject(MatDialog);
 
   public mediaList = signal<Media[]>([]);
@@ -37,11 +36,26 @@ export class MediaList implements OnInit {
   }
 
   public onEdit(item: Media): void {
-    this.router.navigate(['/media', item.id, 'edit']);
+    const dialogRef = this.dialog.open(MediaModal, {
+      width: 'min(92vw, 560px)',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe((media?: Media) => {
+      if (!media) {
+        return;
+      }
+      this.mediaService.update(media).subscribe({
+        next: (updatedMedia) => this.mediaList.update(mediaList =>
+          mediaList.map(currentMedia => currentMedia.id === updatedMedia.id ? updatedMedia : currentMedia)
+        ),
+        error: (err) => console.error('Failed to update media:', err)
+      });
+    });
   }
 
   public openAddDialog(): void {
-    const dialogRef = this.dialog.open(AddMedia, { width: 'min(92vw, 560px)' });
+    const dialogRef = this.dialog.open(MediaModal, { width: 'min(92vw, 560px)' });
 
     dialogRef.afterClosed().subscribe((media?: Media) => {
       if (!media) {
