@@ -72,6 +72,7 @@
             <app-media-review
               [comment]="comment"
               [canEdit]="canEditComment(comment)"
+              [canDelete]="canDeleteComment(comment)"
               (edit)="openEditReviewDialog(currentMedia, $event)"
               (delete)="deleteComment($event)" />
           }

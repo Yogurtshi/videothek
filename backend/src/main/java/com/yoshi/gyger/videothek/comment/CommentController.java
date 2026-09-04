@@ -93,7 +93,7 @@ public class CommentController {
 
     // DELETE COMMENT BY ID
     @DeleteMapping("/api/comments/{id}")
-    @RolesAllowed(Roles.Admin)
+    @RolesAllowed({Roles.Read, Roles.Admin})
     @Operation(summary = "Delete comment", description = "Delete a comment by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Comment deleted successfully"),

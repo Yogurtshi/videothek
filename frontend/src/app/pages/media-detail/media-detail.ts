@@ -34,6 +34,7 @@ export class MediaDetail implements OnInit {
   public averageRating = signal<number | null>(null);
   public myRating = signal<Rating | null>(null);
   public username = signal('');
+  public isAdmin = signal(false);
 
   public openReviewDialog(currentMedia: Media): void {
     const dialogRef = this.dialog.open<MediaReviewDialog, MediaReviewData, MediaReviewSubmission>(MediaReviewDialog, {
@@ -99,6 +100,10 @@ export class MediaDetail implements OnInit {
     return !!this.myRating() && comment.username === this.username();
   }
 
+  public canDeleteComment(comment: Comment): boolean {
+    return this.isAdmin() || comment.username === this.username();
+  }
+
   public deleteComment(comment: Comment): void {
     const dialogRef = this.dialog.open<ConfirmDialog, ConfirmDialogData, boolean>(ConfirmDialog, {
       width: '560px',
@@ -128,6 +133,7 @@ export class MediaDetail implements OnInit {
     }
 
     this.authService.useraliasObservable.subscribe(username => this.username.set(username));
+    this.authService.getRoles().subscribe(roles => this.isAdmin.set(roles.includes('admin')));
 
     this.mediaService.getOne(id).subscribe({
       next: (media) => this.media.set(media),
