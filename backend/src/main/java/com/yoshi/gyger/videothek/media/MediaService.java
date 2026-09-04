@@ -37,7 +37,7 @@ public class MediaService {
                     mediaOrig.setMediaCategory(media.getMediaCategory());
                     return mediaRepository.save(mediaOrig);
                 })
-                .orElseGet(() -> mediaRepository.save(media));
+                .orElseThrow(() -> new EntityNotFoundException(id, Media.class));
     }
 
     public MessageResponse deleteMedia(Long id) {

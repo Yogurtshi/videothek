@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -34,6 +35,14 @@ public class MediaServiceTests {
         when(mediaRepositoryMock.findById(1L)).thenReturn(Optional.ofNullable(mediaMock));
         Media m = mediaService.getMedia(1L);
         verify(mediaRepositoryMock, times(1)).findById(1L);
+    }
+
+    @Test
+    void updateMissingMediaDoesNotCreateDuplicate() {
+        when(mediaRepositoryMock.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> mediaService.updateMedia(mediaMock, 1L));
+        verify(mediaRepositoryMock, never()).save(any());
     }
 
     @Test
