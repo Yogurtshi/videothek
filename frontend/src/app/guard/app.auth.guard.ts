@@ -1,31 +1,25 @@
 import {inject} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivateChildFn, CanActivateFn, Router, RouterStateSnapshot} from '@angular/router';
 import {OAuthService} from 'angular-oauth2-oidc';
+import {map, take} from 'rxjs';
 import {AppAuthService} from '../service/app.auth.service';
 
-export const appCanActivate: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  state: RouterStateSnapshot
-) => {
+export const appCanActivate: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const authService: AppAuthService = inject(AppAuthService);
   const oauthService: OAuthService = inject(OAuthService);
   const router = inject(Router);
+  void state;
 
-  let userRoles: string[] = [];
-
-  authService.getRoles().subscribe(roles => {
-    userRoles = roles;
-  });
-
-  if (oauthService.hasValidAccessToken()) {
-    const hasRoles = checkRoles(route, userRoles);
-    if (!hasRoles) {
-      return router.parseUrl('/noaccess');
-    }
-    return hasRoles;
+  if (!oauthService.hasValidAccessToken()) {
+    return router.parseUrl('/noaccess');
   }
-  return router.parseUrl('/noaccess');
+
+  return authService.getRoles().pipe(
+    take(1),
+    map(userRoles => checkRoles(route, userRoles)
+      ? true
+      : router.parseUrl('/noaccess'))
+  );
 };
 
 function checkRoles(route: ActivatedRouteSnapshot, userRoles: string[]): boolean {
@@ -47,4 +41,4 @@ function checkRoles(route: ActivatedRouteSnapshot, userRoles: string[]): boolean
   return false;
 }
 
-export const appCanActivateChild: CanActivateChildFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => appCanActivate(route, state);
+export const appCanActivateChild: CanActivateChildFn = (route, state) => appCanActivate(route, state);
