@@ -4,8 +4,20 @@
     <div class="comment__meta">
       <strong>{{ comment.username || 'Username' }}</strong>
       <span>Bewertung</span>
-      @if (canEdit) { <button mat-button type="button" (click)="edit.emit(comment)">Bearbeiten</button> }
-      <button *appIsInRoles="['admin']" mat-button type="button" (click)="delete.emit(comment)">Löschen</button>
+      <button
+        class="comment__menu-trigger"
+        mat-icon-button
+        type="button"
+        [matMenuTriggerFor]="reviewMenu"
+        aria-label="Review-Aktionen öffnen">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #reviewMenu="matMenu">
+        @if (canEdit) {
+          <button mat-menu-item type="button" (click)="edit.emit(comment)">Bearbeiten</button>
+        }
+        <button *appIsInRoles="['admin']" mat-menu-item type="button" (click)="delete.emit(comment)">Löschen</button>
+      </mat-menu>
     </div>
     <p>{{ comment.commentText }}</p>
   </div>
