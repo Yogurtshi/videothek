@@ -4,9 +4,13 @@
 	<form id="review-form" class="review-form" [formGroup]="reviewForm" (ngSubmit)="submit()">
 		<fieldset>
 			<legend>Deine Bewertung</legend>
-			<mat-radio-group class="score-options" formControlName="score" aria-label="Bewertung von 1 bis 10">
-				@for (score of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track score) { <mat-radio-button [value]="score">{{ score }}</mat-radio-button> }
-			</mat-radio-group>
+			<div class="score-control">
+				<div class="score-control__value" aria-live="polite">{{ reviewForm.controls.score.value ?? '-' }} / 10</div>
+				<mat-slider class="score-slider" min="1" max="10" step="1" discrete>
+					<input matSliderThumb formControlName="score" aria-label="Bewertung von 1 bis 10" />
+				</mat-slider>
+				<div class="score-control__bounds" aria-hidden="true"><span>1</span><span>10</span></div>
+			</div>
 			@if (reviewForm.controls.score.invalid && reviewForm.controls.score.touched) { <mat-error>Bitte eine Bewertung auswählen.</mat-error> }
 		</fieldset>
 		<mat-form-field appearance="outline">

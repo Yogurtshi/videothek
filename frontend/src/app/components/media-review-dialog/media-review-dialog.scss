@@ -1,7 +1,56 @@
-.review-title { color: var(--mat-sys-on-surface-variant); font-weight: 700; margin: 0 0 24px; }
-.review-form { display: grid; gap: 24px; min-width: min(100%, 480px); }
-fieldset { border: 0; margin: 0; padding: 0; }
-legend { font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; }
-.score-options { display: grid; gap: 4px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
-.review-form mat-form-field { width: 100%; }
-@media (max-width: 480px) { .review-form { min-width: 0; } }
+.review-title {
+    color: var(--mat-sys-on-surface-variant);
+    font-weight: 700;
+    margin: 0 0 24px;
+}
+
+.review-form {
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+legend {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.score-control {
+    display: grid;
+    gap: 2px;
+}
+
+.score-control__value {
+    color: var(--mat-sys-primary);
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.score-slider {
+    justify-self: center;
+    width: 94%;
+}
+
+.score-control__bounds {
+    color: var(--mat-sys-on-surface-variant);
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: space-between;
+    padding: 0 8px;
+}
+
+.review-form mat-form-field {
+    width: 100%;
+}
+
+mat-dialog-content {
+  overflow-x: hidden;
+}

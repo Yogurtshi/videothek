@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
+import { MatSliderModule } from '@angular/material/slider';
 import { Media } from '../../data/media';
 import { Comment } from '../../data/comment';
 import { Rating } from '../../data/rating';
@@ -14,7 +14,7 @@ export interface MediaReviewData { media: Media; comment?: Comment; rating?: Rat
 
 @Component({
   selector: 'app-media-review-dialog',
-  imports: [ReactiveFormsModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatRadioModule],
+  imports: [ReactiveFormsModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSliderModule],
   templateUrl: './media-review-dialog.html',
   styleUrl: './media-review-dialog.scss',
 })

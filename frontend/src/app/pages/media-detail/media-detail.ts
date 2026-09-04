@@ -37,8 +37,9 @@ export class MediaDetail implements OnInit {
 
   public openReviewDialog(currentMedia: Media): void {
     const dialogRef = this.dialog.open<MediaReviewDialog, MediaReviewData, MediaReviewSubmission>(MediaReviewDialog, {
-      width: '560px',
-      maxWidth: 'calc(100vw - 32px)',
+      width: '720px',
+      maxWidth: '90vw',
+      panelClass: 'media-dialog-panel',
       data: { media: currentMedia }
     });
 
@@ -66,8 +67,9 @@ export class MediaDetail implements OnInit {
     }
 
     const dialogRef = this.dialog.open<MediaReviewDialog, MediaReviewData, MediaReviewSubmission>(MediaReviewDialog, {
-      width: '560px',
-      maxWidth: 'calc(100vw - 32px)',
+      width: '720px',
+      maxWidth: '90vw',
+      panelClass: 'media-dialog-panel',
       data: { media: currentMedia, comment, rating }
     });
 
