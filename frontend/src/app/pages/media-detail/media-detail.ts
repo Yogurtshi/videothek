@@ -9,16 +9,16 @@ import { RatingService } from '../../service/rating';
 import { Media } from '../../data/media';
 import { Comment } from '../../data/comment';
 import { Rating } from '../../data/rating';
-import { MediaReview, MediaReviewData, MediaReviewSubmission } from '../../components/media-review/media-review';
+import { MediaReviewDialog, MediaReviewData, MediaReviewSubmission } from '../../components/media-review-dialog/media-review-dialog';
+import { MediaReview } from '../../components/media-review/media-review';
 import { AppAuthService } from '../../service/app.auth.service';
-import { IsInRolesDirective } from '../../directives/app-is-in-roles.dir';
 import { ConfirmDialog, ConfirmDialogData } from '../../components/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-media-detail',
   templateUrl: './media-detail.html',
   styleUrl: './media-detail.scss',
-  imports: [RouterLink, MatButtonModule, MatDialogModule, IsInRolesDirective]
+  imports: [RouterLink, MatButtonModule, MatDialogModule, MediaReview]
 })
 export class MediaDetail implements OnInit {
 
@@ -36,7 +36,7 @@ export class MediaDetail implements OnInit {
   public username = signal('');
 
   public openReviewDialog(currentMedia: Media): void {
-    const dialogRef = this.dialog.open<MediaReview, MediaReviewData, MediaReviewSubmission>(MediaReview, {
+    const dialogRef = this.dialog.open<MediaReviewDialog, MediaReviewData, MediaReviewSubmission>(MediaReviewDialog, {
       width: '560px',
       maxWidth: 'calc(100vw - 32px)',
       data: { media: currentMedia }
@@ -65,7 +65,7 @@ export class MediaDetail implements OnInit {
       return;
     }
 
-    const dialogRef = this.dialog.open<MediaReview, MediaReviewData, MediaReviewSubmission>(MediaReview, {
+    const dialogRef = this.dialog.open<MediaReviewDialog, MediaReviewData, MediaReviewSubmission>(MediaReviewDialog, {
       width: '560px',
       maxWidth: 'calc(100vw - 32px)',
       data: { media: currentMedia, comment, rating }

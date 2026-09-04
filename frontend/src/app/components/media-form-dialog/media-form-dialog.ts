@@ -1,22 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { Media } from '../../data/media';
 import { MediaCategory } from '../../data/media-category';
-import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
-  selector: 'app-media-modal',
-  templateUrl: './media-modal.html',
-  styleUrl: './media-modal.scss',
-  imports: [ReactiveFormsModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatRadioModule]
+  selector: 'app-media-form-dialog',
+  imports: [ReactiveFormsModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatRadioModule],
+  templateUrl: './media-form-dialog.html',
+  styleUrl: './media-form-dialog.scss',
 })
-export class MediaModal {
-  private dialogRef = inject(MatDialogRef<MediaModal>);
+export class MediaFormDialog {
+  private dialogRef = inject(MatDialogRef<MediaFormDialog>);
   private dialogData = inject<Media | null>(MAT_DIALOG_DATA, { optional: true });
 
   public mediaForm = new FormGroup({

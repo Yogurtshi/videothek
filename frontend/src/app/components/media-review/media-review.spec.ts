@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
 import { MediaReview } from './media-review';
+import { Comment } from '../../data/comment';
+import { AppAuthService } from '../../service/app.auth.service';
+import { of } from 'rxjs';
 
 describe('MediaReview', () => {
   let component: MediaReview;
@@ -10,13 +11,11 @@ describe('MediaReview', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MediaReview],
-      providers: [
-        { provide: MatDialogRef, useValue: { close: vi.fn() } },
-        { provide: MAT_DIALOG_DATA, useValue: { media: { title: 'Test media' } } }
-      ]
+      providers: [{ provide: AppAuthService, useValue: { getRoles: () => of([]) } }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(MediaReview);
+    fixture.componentRef.setInput('comment', Object.assign(new Comment(), { commentText: 'Test comment' }));
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

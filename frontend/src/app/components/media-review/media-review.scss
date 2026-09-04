@@ -1,3 +1,10 @@
+.comment { border: 1px solid var(--detail-line); border-radius: 8px; display: flex; gap: 16px; padding: 20px; }
+.comment__avatar { align-items: center; background: var(--detail-accent-soft); border-radius: 50%; color: var(--detail-accent); display: flex; flex: 0 0 40px; font-weight: 800; height: 40px; justify-content: center; }
+.comment__body { flex: 1; }
+.comment__meta { align-items: center; display: flex; gap: 12px; margin-bottom: 8px; }
+.comment__meta button { margin-left: auto; min-height: 32px; }
+.comment__meta span { color: #a36e06; font-size: 0.8rem; font-weight: 700; }
+.comment__body p { color: #3c4852; line-height: 1.55; margin: 0; }
 .review-title {
 	color: var(--mat-sys-on-surface-variant);
 	font-weight: 700;

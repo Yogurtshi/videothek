@@ -12,7 +12,7 @@
 
 <mat-sidenav-container class="app-container" style="border-radius: 0">
   <mat-sidenav #sidenav mode="over" style="border-radius: 0" [opened]="sidenavOpened" (closedStart)="sidenavOpened = false">
-    <app-navbar (linkClicked)="sidenavOpened = false"></app-navbar>
+    <app-navigation (linkClicked)="sidenavOpened = false"></app-navigation>
   </mat-sidenav>
 
   <mat-sidenav-content style="border-radius: 0">

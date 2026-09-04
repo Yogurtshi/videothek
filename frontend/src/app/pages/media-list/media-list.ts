@@ -9,7 +9,7 @@ import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatChip, MatChipSet } from '@angular/material/chips';
 import { IsInRolesDirective } from '../../directives/app-is-in-roles.dir';
-import { MediaModal } from '../../components/media-modal/media-modal';
+import { MediaFormDialog } from '../../components/media-form-dialog/media-form-dialog';
 import { ConfirmDialog, ConfirmDialogData } from '../../components/confirm-dialog/confirm-dialog';
 
 @Component({
@@ -37,9 +37,9 @@ export class MediaList implements OnInit {
   }
 
   public onEdit(item: Media): void {
-    const dialogRef = this.dialog.open(MediaModal, {
+    const dialogRef = this.dialog.open(MediaFormDialog, {
       width: '640px',
-      panelClass: 'media-modal-panel',
+      panelClass: 'media-dialog-panel',
       data: item
     });
 
@@ -57,9 +57,9 @@ export class MediaList implements OnInit {
   }
 
   public openAddDialog(): void {
-    const dialogRef = this.dialog.open(MediaModal, {
+    const dialogRef = this.dialog.open(MediaFormDialog, {
       width: '640px',
-      panelClass: 'media-modal-panel'
+      panelClass: 'media-dialog-panel'
     });
 
     dialogRef.afterClosed().subscribe((media?: Media) => {

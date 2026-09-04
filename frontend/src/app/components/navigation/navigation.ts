@@ -5,12 +5,12 @@ import { MatIcon } from '@angular/material/icon';
 import { IsInRolesDirective } from '../../directives/app-is-in-roles.dir';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.html',
-  styleUrl: './navbar.scss',
-  imports: [RouterLink, RouterLinkActive, MatListModule, MatIcon, IsInRolesDirective]
+  selector: 'app-navigation',
+  imports: [RouterLink, RouterLinkActive, MatListModule, MatIcon, IsInRolesDirective],
+  templateUrl: './navigation.html',
+  styleUrl: './navigation.scss',
 })
-export class Navbar {
+export class Navigation {
   @Output() linkClicked = new EventEmitter<void>();
 
   public onLinkClick(): void {
