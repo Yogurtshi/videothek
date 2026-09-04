@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AppAuthService } from '../../service/app.auth.service';
-import { IsInRolesDirective } from '../../directives/app-is-in-roles.dir';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
