@@ -1,0 +1,20 @@
+.media-form {
+	display: grid;
+	gap: 8px;
+	padding-top: 8px;
+}
+
+.media-field {
+	display: block;
+	width: 100%;
+}
+
+.media-type {
+	display: flex;
+	gap: 24px;
+	margin: 4px 0 12px;
+}
+
+mat-dialog-actions {
+	gap: 8px;
+}
