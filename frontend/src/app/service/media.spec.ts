@@ -30,6 +30,27 @@ describe('MediaService', () => {
     request.flush(media);
   });
 
+  it('gets one medium by id', () => {
+    const media = new Media();
+    media.id = 7;
+    service.getOne(media.id).subscribe(result => expect(result).toEqual(media));
+
+    const request = http.expectOne(environment.backendBaseUrl + 'media/7');
+    expect(request.request.method).toBe('GET');
+    request.flush(media);
+  });
+
+  it('saves a medium', () => {
+    const media = new Media();
+    media.title = 'Inception';
+    service.save(media).subscribe(result => expect(result).toEqual(media));
+
+    const request = http.expectOne(environment.backendBaseUrl + 'media');
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual(media);
+    request.flush(media);
+  });
+
   it('updates a medium by id', () => {
     const media = new Media();
     media.id = 7;
