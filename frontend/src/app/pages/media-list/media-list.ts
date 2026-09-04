@@ -1,22 +1,20 @@
 
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MediaService } from '../../service/media';
 import { Media } from '../../data/media';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatChip, MatChipSet } from '@angular/material/chips';
 import { IsInRolesDirective } from '../../directives/app-is-in-roles.dir';
 import { MediaFormDialog } from '../../components/media-form-dialog/media-form-dialog';
 import { ConfirmDialog, ConfirmDialogData } from '../../components/confirm-dialog/confirm-dialog';
+import { MediaCard } from '../../components/media-card/media-card';
 
 @Component({
   selector: 'app-media-list',
   templateUrl: './media-list.html',
   styleUrl: './media-list.scss',
-  imports: [MatCardModule, MatButtonModule, MatDialogModule, MatIconButton, MatIcon, MatChip, MatChipSet, RouterLink, IsInRolesDirective]
+  imports: [MatButtonModule, MatDialogModule, MatIcon, IsInRolesDirective, MediaCard]
 })
 export class MediaList implements OnInit {
 

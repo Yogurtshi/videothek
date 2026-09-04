@@ -1,0 +1,26 @@
+<mat-card class="media-card" [class.media-card--movie]="item.mediaCategory === 'MOVIE'"
+	[class.media-card--series]="item.mediaCategory !== 'MOVIE'" [routerLink]="['/media', item.id]">
+	<mat-card-header>
+		<mat-card-title>
+			{{ item.title }}
+		</mat-card-title>
+		<mat-card-subtitle>{{ item.releaseYear }} · {{ item.director }}</mat-card-subtitle>
+	</mat-card-header>
+
+	<mat-card-content>
+		<mat-chip-set>
+			<mat-chip>{{ item.mediaCategory }}</mat-chip>
+		</mat-chip-set>
+	</mat-card-content>
+
+	<mat-card-actions align="end">
+		<ng-container *appIsInRoles="['admin']">
+			<button mat-icon-button aria-label="Bearbeiten" (click)="$event.stopPropagation(); edit.emit(item)">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<button mat-icon-button aria-label="Löschen" (click)="$event.stopPropagation(); delete.emit(item)">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</ng-container>
+	</mat-card-actions>
+</mat-card>

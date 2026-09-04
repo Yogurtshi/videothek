@@ -1,0 +1,50 @@
+.media-card {
+	border-radius: 4px;
+	box-shadow: none;
+	cursor: pointer;
+	min-width: 0;
+	transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+.media-card:hover {
+	box-shadow: 0 8px 20px rgba(32, 32, 42, 0.12);
+	transform: translateY(-2px);
+}
+
+.media-card--movie {
+	background: #fff0cf;
+}
+
+.media-card--series {
+	background: #dff1ed;
+}
+
+.media-card mat-card-header {
+	min-height: 92px;
+}
+
+.media-card mat-card-title {
+	font-size: 1.1rem;
+	line-height: 1.25;
+}
+
+.media-card mat-card-subtitle {
+	color: #686875;
+	margin-top: 8px;
+}
+
+.media-card mat-card-content {
+	padding-top: 8px;
+}
+
+.media-card mat-card-actions {
+	border-top: 1px solid rgba(32, 32, 42, 0.1);
+	margin: 12px 0 0;
+	padding: 8px 8px 8px 16px;
+}
+
+.media-card mat-chip {
+	--mdc-chip-container-height: 28px;
+	font-size: 0.75rem;
+	font-weight: 700;
+}
