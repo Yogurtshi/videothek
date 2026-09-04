@@ -17,6 +17,14 @@ export class RatingService {
     return this.http.post<Rating>(environment.backendBaseUrl + RatingService.backendUrl + `/${mediaId}/ratings`, rating);
   }
 
+  public getMine(mediaId: number): Observable<Rating> {
+    return this.http.get<Rating>(environment.backendBaseUrl + RatingService.backendUrl + `/${mediaId}/ratings/me`);
+  }
+
+  public update(rating: Rating): Observable<Rating> {
+    return this.http.put<Rating>(environment.backendBaseUrl + 'ratings' + `/${rating.id}`, rating);
+  }
+
   public getAverage(mediaId: number): Observable<number> {
     return this.http.get<number>(environment.backendBaseUrl + RatingService.backendUrl + `/${mediaId}/ratings/average`);
   }

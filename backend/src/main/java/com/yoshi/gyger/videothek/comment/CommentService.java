@@ -6,6 +6,7 @@ import com.yoshi.gyger.videothek.media.MediaService;
 import com.yoshi.gyger.videothek.storage.EntityNotFoundException;
 
 import com.yoshi.gyger.videothek.storage.UnauthorizedException;
+import com.yoshi.gyger.videothek.security.Roles;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
@@ -62,16 +63,20 @@ public class CommentService {
 
     public MessageResponse deleteComment(Long id) {
 
-        // CHECKS WITH THE TOKEN PREFERRED_USERNAME IF THE COMMENT BELONGS TO USER
-        Jwt jwt = (Jwt) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
-        String username = jwt.getClaimAsString("preferred_username");
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(authority -> authority.getAuthority().equals(Roles.Admin)
+                        || authority.getAuthority().equals("ROLE_" + Roles.Admin));
 
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id, Comment.class));
 
-        if (!comment.getUsername().equals(username)) {
-            throw new UnauthorizedException("You are not the creator of this comment");
+        if (!isAdmin) {
+            Jwt jwt = (Jwt) authentication.getPrincipal();
+            String username = jwt.getClaimAsString("preferred_username");
+            if (!comment.getUsername().equals(username)) {
+                throw new UnauthorizedException("You are not the creator of this comment");
+            }
         }
 
         commentRepository.delete(comment);

@@ -3,6 +3,8 @@ package com.yoshi.gyger.videothek.rating;
 import com.yoshi.gyger.videothek.media.Media;
 import com.yoshi.gyger.videothek.media.MediaService;
 import com.yoshi.gyger.videothek.storage.DuplicateRatingException;
+import com.yoshi.gyger.videothek.storage.EntityNotFoundException;
+import com.yoshi.gyger.videothek.storage.UnauthorizedException;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -45,5 +47,27 @@ public class RatingService {
         mediaService.getMedia(mediaId);
         return ratingRepository.findAverageScoreByMediaId(mediaId)
                 .orElse(0.0);
+    }
+
+    public Rating getRatingForUser(Long mediaId) {
+        return ratingRepository.findByMediaIdAndUsername(mediaId, currentUsername())
+                .orElseThrow(() -> new EntityNotFoundException(mediaId, Rating.class));
+    }
+
+    public Rating updateRating(Long id, RatingDTO ratingDTO) {
+        Rating rating = ratingRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id, Rating.class));
+
+        if (!rating.getUsername().equals(currentUsername())) {
+            throw new UnauthorizedException("You are not the creator of this rating");
+        }
+
+        rating.setScore(ratingDTO.getScore());
+        return ratingRepository.save(rating);
+    }
+
+    private String currentUsername() {
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return jwt.getClaimAsString("preferred_username");
     }
 }

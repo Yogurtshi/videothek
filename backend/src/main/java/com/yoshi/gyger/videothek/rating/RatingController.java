@@ -50,6 +50,30 @@ public class RatingController {
         }
     }
 
+    @GetMapping("/api/media/{mediaId}/ratings/me")
+    @RolesAllowed(Roles.Read)
+    public ResponseEntity<Rating> getMyRating(@PathVariable Long mediaId) {
+        try {
+            return ResponseEntity.ok(ratingService.getRatingForUser(mediaId));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/api/ratings/{id}")
+    @RolesAllowed({Roles.Update, Roles.Admin})
+    public ResponseEntity<Rating> updateRating(
+            @PathVariable Long id,
+            @Valid @RequestBody RatingDTO request) {
+        try {
+            return ResponseEntity.ok(ratingService.updateRating(id, request));
+        } catch (com.yoshi.gyger.videothek.storage.UnauthorizedException e) {
+            return ResponseEntity.status(403).build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     // GET RATING AVERAGE BY MEDIA ID
     @GetMapping("/api/media/{mediaId}/ratings/average")
     @RolesAllowed(Roles.Read)
