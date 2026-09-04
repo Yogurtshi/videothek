@@ -1,6 +1,9 @@
 <section class="media-list">
   <div class="media-list-header">
-    <h1>Medien</h1>
+    <div>
+      <p class="eyebrow">Bibliothek</p>
+      <h1>Medien</h1>
+    </div>
     <button mat-flat-button *appIsInRoles="['admin']" (click)="openAddDialog()">
       <mat-icon>add</mat-icon>
       Media hinzufügen
@@ -8,13 +11,13 @@
   </div>
 
   @if (mediaList().length === 0) {
-  <p>Keine Medien gefunden.</p>
+  <p class="empty-state">Keine Medien gefunden.</p>
   }
 
   <div class="media-grid">
     @for (item of mediaList(); track item.id) {
-    <mat-card class="media-card" [routerLink]="['/media', item.id]" 
-      [style.background-color]="item.mediaCategory === 'MOVIE' ? '#fff3e0' : '#e0f7fa'">
+    <mat-card class="media-card" [class.media-card--movie]="item.mediaCategory === 'MOVIE'"
+      [class.media-card--series]="item.mediaCategory !== 'MOVIE'" [routerLink]="['/media', item.id]">
       <mat-card-header>
         <mat-card-title>
           {{ item.title }}
