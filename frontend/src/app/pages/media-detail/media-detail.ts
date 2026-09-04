@@ -1,5 +1,6 @@
 
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,7 +19,7 @@ import { ConfirmDialog, ConfirmDialogData } from '../../components/confirm-dialo
   selector: 'app-media-detail',
   templateUrl: './media-detail.html',
   styleUrl: './media-detail.scss',
-  imports: [RouterLink, MatButtonModule, MatDialogModule, MediaReview]
+  imports: [RouterLink, MatButtonModule, MatDialogModule, MediaReview, DecimalPipe]
 })
 export class MediaDetail implements OnInit {
 

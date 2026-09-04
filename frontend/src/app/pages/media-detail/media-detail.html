@@ -10,7 +10,7 @@
         <p class="release-line">{{ currentMedia.releaseYear }} <span aria-hidden="true">·</span> Regie: {{ currentMedia.director }}</p>
       </div>
       <div class="rating-summary" aria-label="Durchschnittliche Bewertung">
-        <span class="rating-summary__score">{{ averageRating() ?? '-' }}</span>
+        <span class="rating-summary__score">{{ averageRating() === null ? '-' : (averageRating() | number:'1.1-1') }}</span>
         <span class="rating-summary__label">von 10</span>
       </div>
     </header>
