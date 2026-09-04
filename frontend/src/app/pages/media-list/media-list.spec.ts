@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { AuthConfig, provideOAuthClient } from 'angular-oauth2-oidc';
+import { authConfig } from '../../app.auth';
 import { MediaList } from './media-list';
 
 describe('MediaList', () => {
@@ -8,6 +12,12 @@ describe('MediaList', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MediaList],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideOAuthClient(),
+        { provide: AuthConfig, useValue: authConfig },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MediaList);
