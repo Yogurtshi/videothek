@@ -1,14 +1,66 @@
 
 <section class="admin-dashboard">
-  <h1>Admin Dashboard</h1>
+  <header class="dashboard-header">
+    <p class="eyebrow">Übersicht</p>
+    <h1>Hallo Admin!</h1>
+    <p class="dashboard-intro">Behalte deine Mediathek und die Community im Blick.</p>
+  </header>
 
-  @if (stats(); as currentStats) {
-    <ul class="stats">
-      <li>Medien: {{ currentStats.mediaCount }}</li>
-      <li>Kommentare: {{ currentStats.commentCount }}</li>
-      <li>Bewertungen: {{ currentStats.ratingCount }}</li>
-    </ul>
-  } @else {
-    <p>Lade Statistiken...</p>
-  }
+  <section class="stats-section" aria-labelledby="stats-heading">
+    <div class="section-heading">
+      <h2 id="stats-heading">Statistiken</h2>
+    </div>
+
+    @if (stats(); as currentStats) {
+      <div class="stats-grid">
+        <article class="stat-card stat-card--media">
+          <span class="stat-label">Medien</span>
+          <strong class="stat-value">{{ currentStats.mediaCount }}</strong>
+          <mat-icon aria-hidden="true">movie</mat-icon>
+        </article>
+        <article class="stat-card stat-card--comments">
+          <span class="stat-label">Kommentare</span>
+          <strong class="stat-value">{{ currentStats.commentCount }}</strong>
+          <mat-icon aria-hidden="true">forum</mat-icon>
+        </article>
+        <article class="stat-card stat-card--ratings">
+          <span class="stat-label">Bewertungen</span>
+          <strong class="stat-value">{{ currentStats.ratingCount }}</strong>
+          <mat-icon aria-hidden="true">star</mat-icon>
+        </article>
+      </div>
+    } @else {
+      <p class="loading-state">Lade Statistiken...</p>
+    }
+  </section>
+
+  <section class="comments-section" aria-labelledby="comments-heading">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Moderation</p>
+        <h2 id="comments-heading">Kommentare</h2>
+      </div>
+      <span class="section-count">{{ comments().length }}</span>
+    </div>
+
+    @if (commentsLoading()) {
+      <p class="loading-state">Lade Kommentare...</p>
+    } @else if (comments().length === 0) {
+      <p class="empty-state">Noch keine Kommentare vorhanden.</p>
+    } @else {
+      <div class="comment-list">
+        @for (comment of comments(); track comment.id) {
+          <article class="comment-row">
+            <div class="comment-media">{{ comment.media?.title || 'Unbekanntes Medium' }}</div>
+            <div class="comment-author">{{ comment.username }}</div>
+            <p class="comment-text">{{ comment.commentText }}</p>
+            <button mat-button class="delete-button" type="button" (click)="deleteComment(comment)">
+              <mat-icon aria-hidden="true">delete_outline</mat-icon>
+              Löschen
+            </button>
+          </article>
+        }
+      </div>
+    }
+  </section>
 </section>
